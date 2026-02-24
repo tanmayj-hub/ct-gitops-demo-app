@@ -74,7 +74,9 @@ jobs:
           text = path.read_text()
 
           new_tag = os.environ["IMAGE_TAG"]
-          updated = re.sub(r'(?m)^(\s*newTag:\s*).+$', r'\1' + new_tag, text)
+
+          pattern = r'(?m)^(\s*newTag:\s*).+$'
+          updated = re.sub(pattern, r'\g<1>' + new_tag, text)
 
           if text == updated:
             raise SystemExit(f"ERROR: newTag line not found or unchanged in {path}")

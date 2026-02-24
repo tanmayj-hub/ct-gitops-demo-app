@@ -27,6 +27,11 @@ jobs:
           role-to-assume: ${{ vars.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: gha-ecr-push-demo-app
+      
+      - name: Debug AWS_ROLE_ARN
+        run: |
+          echo "AWS_ROLE_ARN='${{ vars.AWS_ROLE_ARN }}'"
+          test -n "${{ vars.AWS_ROLE_ARN }}" || (echo "ERROR: AWS_ROLE_ARN repo variable is missing" && exit 1)
 
       - name: Login to Amazon ECR
         id: login-ecr
